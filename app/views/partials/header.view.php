@@ -19,12 +19,18 @@ include __DIR__ . "/head.view.php";
         </div>
 
         <div class="flex items-center space-x-4">
-            <a href="/login" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300 mr-2">
-                Connexion
-            </a>
-            <a href="/register" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
-                Inscription
-            </a>
+            <?php if (!isset($_SESSION['user_id'])) : ?>
+                <a href="/login" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300 mr-2">
+                    Connexion
+                </a>
+                <a href="/register" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
+                    Inscription
+                </a>
+            <?php else : ?>
+                <a href="/logout" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">
+                    Logout
+                </a>
+            <?php endif ?>
         </div>
 
         <div class="md:hidden">
@@ -35,4 +41,12 @@ include __DIR__ . "/head.view.php";
             </button>
         </div>
     </nav>
+    <p class="bg-red-900 text-red-300 text-xs font-medium  rounded top-0 z-30 absolute w-full text-center error-p">
+        <?= $_SESSION['error']; ?>
+        <?php unset($_SESSION['error']); ?>
+    </p>
+    <p class="bg-green-900 text-green-300 text-xs font-medium  rounded top-0 z-30 absolute w-full text-center success-p">
+        <?= $_SESSION['success']; ?>
+        <?php unset($_SESSION['success']); ?>
+    </p>
 </header>

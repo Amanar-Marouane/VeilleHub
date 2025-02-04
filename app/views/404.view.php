@@ -1,6 +1,6 @@
-<?php include __DIR__ . "/partials/header.view.php"; ?>
+<?php include __DIR__ . "/partials/head.view.php"; ?>
 
-<div class="min-h-[60vh] bg-gray-900 flex items-center justify-center px-4">
+<div class="min-h-[100vh] bg-gray-900 flex items-center justify-center px-4">
     <div class="text-center">
         <h1 class="text-9xl font-bold text-indigo-600 mb-4">404</h1>
 
@@ -19,5 +19,3 @@
         </div>
     </div>
 </div>
-
-<?php include __DIR__ . "/partials/footer.view.php"; ?>

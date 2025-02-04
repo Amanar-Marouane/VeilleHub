@@ -9,7 +9,7 @@
         });
 
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/getAll/veilles', true);
+        xhr.open('GET', 'getAll/veilles', true);
 
         xhr.onload = function() {
             if (xhr.status === 200) {
