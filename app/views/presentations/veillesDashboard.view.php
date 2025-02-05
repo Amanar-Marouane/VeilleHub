@@ -9,6 +9,17 @@
                 <div class="col-span-1 bg-gray-800 rounded-lg p-4">
                     <h2 class="text-xl font-bold text-indigo-400 mb-4">Student Suggestions</h2>
                     <div class="custom-scrollbar max-h-96 overflow-y-auto">
+                        <?php if (empty($suggestions)):  ?>
+                            <div class="flex items-center justify-center bg-gray-900 rounded-lg p-6 text-center">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <h3 class="text-lg font-semibold text-gray-300 mb-2">There's no suggestions at the moment</h3>
+                                    <p class="text-gray-500">There are currently no suggestions waiting for review. Check back later.</p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                         <?php foreach ($suggestions as $suggest):
                             extract($suggest) ?>
                             <div class="bg-gray-700 p-4 mb-3 rounded-lg">
