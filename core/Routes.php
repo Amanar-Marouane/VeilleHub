@@ -14,3 +14,4 @@ $router->route("register/user", "", new UserController, "register");
 $router->route("login/user", "", new UserController, "login");
 $router->route("getall/veilles", "", new PresentationController, "getAll");
 $router->route("logout", "", new UserController, "logout");
+$router->route("dashboard/accounts/validation", "", new AdminController, "accountVal");

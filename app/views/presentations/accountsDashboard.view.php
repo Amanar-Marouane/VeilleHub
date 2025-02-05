@@ -26,12 +26,12 @@
                                         <h3 class="font-semibold"><?= $full_name ?></h3>
                                         <p class="text-sm text-gray-400"><?= $email ?></p>
                                     </div>
-                                    <form action="" method="POST" class="flex space-x-2">
-                                        <input type="hidden" value="<?= $user_id ?>">
-                                        <button type="submit" name="action" class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
+                                    <form action="/dashboard/accounts/validation" method="POST" class="flex space-x-2">
+                                        <input type="hidden" name="user_id" value="<?= $user_id ?>">
+                                        <button type="submit" name="action" value="1" class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
                                             Approve
                                         </button>
-                                        <button type="submit" name="action" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
+                                        <button type="submit" name="action" value="0" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
                                             Reject
                                         </button>
                                     </form>
@@ -58,9 +58,12 @@
                                         <span class="px-2 py-1 bg-green-900 text-green-200 rounded text-sm">
                                             Approved
                                         </span>
-                                        <button class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
-                                            Delete
-                                        </button>
+                                        <form action="/dashboard/accounts/validation" method="POST" class="flex space-x-2">
+                                            <input type="hidden" name="user_id" value="<?= $user_id ?>">
+                                            <button type="submit" name="action" value="0" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
+                                                Reject
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
