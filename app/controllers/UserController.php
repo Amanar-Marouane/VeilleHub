@@ -30,8 +30,10 @@ class UserController
 
     public function login()
     {
-        if ($user_id = Auth::login($_POST["email"], $_POST['password'])) {
-            $_SESSION['user_id'] = $user_id;
+        if ($info = Auth::login($_POST["email"], $_POST['password'])) {
+            if($info["account_status"] = "Pending") $this->baseController::redirect("/login", "error", "Wait until your account get approved, this may take 1 day");
+            $_SESSION['user_id'] = $info["user_id"];
+            $_SESSION['account_type'] = $info["account_type"];
             $this->baseController::redirect("/calendar", "success", "You loged in successfuly");
         }
         $this->baseController::redirect("/login", "error", "Check your info");

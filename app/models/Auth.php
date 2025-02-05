@@ -10,13 +10,13 @@ class Auth
     public static function login($email, $password)
     {
         $instence = new Db;
-        $stmt = "SELECT password, user_id FROM users WHERE email = ?";
+        $stmt = "SELECT password, user_id, account_type, account_status FROM users WHERE email = ?";
         $bindParam = [$email];
 
         $info = $instence->fetch($stmt, $bindParam);
         $co_password = $info["password"];
         if (!$co_password) return false;
-        if (password_verify($password, $co_password)) return $info['user_id'];
+        if (password_verify($password, $co_password)) return $info;
         return false;
     }
 
