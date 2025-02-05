@@ -19,9 +19,9 @@ class Admin
         return $this->pdo->fetchAll($stmt);
     }
 
-    public function delete($id)
+    public function delete($id, $target, $table)
     {
-        $stmt = "DELETE FROM users WHERE user_id = ?";
+        $stmt = "DELETE FROM $table WHERE $target = ?";
         return $this->pdo->query($stmt, [$id]);
     }
 
@@ -30,5 +30,11 @@ class Admin
         $stmt = "UPDATE users
                  set account_status = 'Approved' WHERE user_id = ?";
         return $this->pdo->query($stmt, [$id]);
+    }
+
+    public function getSuggestions()
+    {
+        $stmt = "SELECT * FROM  suggestions";
+        return $this->pdo->fetchAll($stmt);
     }
 }
