@@ -2,21 +2,30 @@
 
 namespace app\controllers;
 
-use app\models\Subject;
+use app\models\{Subject, Admin};
 
 class SubjectController
 {
     private $baseController;
+    private $admin;
 
     public function __construct()
     {
         $this->baseController = new BaseController;
+        $this->admin = new Admin;
     }
 
     public function create()
     {
         $subject = new Subject($_POST['title'], $_POST['start'], $_POST['end']);
         if ($subject->create()) $this->baseController->redirect("/dashboard/veilles", "success", "The veille has been added successfuly!");
+        else $this->baseController->redirect("/dashboard/veilles", "error", "Something went wrong, try again");
+    }
+
+    public function delete()
+    {
+        $id = $_POST['veille_id'];
+        if ($this->admin->delete($id, "veille_id", "veilles")) $this->baseController->redirect("/dashboard/veilles", "success", "The veille has been deleted successfuly!");
         else $this->baseController->redirect("/dashboard/veilles", "error", "Something went wrong, try again");
     }
 }

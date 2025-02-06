@@ -6,6 +6,36 @@
     <div class="flex-1">
         <main class="p-3">
             <div class="grid grid-rows gap-6">
+                <div class="flex gap-2">
+                    <div class="col-span-1 bg-gray-800 rounded-lg p-4 h-fit w-[50%]">
+                        <!-- <h2 class="text-xl font-bold text-indigo-400 mb-4">Next Veille</h2> -->
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2"><?= $next_title ?></h3>
+                            <div class="flex flex-col text-sm text-gray-400">
+                                <span>Start Date: <?= $next_start ?></span>
+                                <span>End Date: <?= $next_end ?></span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <span class="px-2 py-1 bg-green-900 text-green-300 rounded">Upcoming</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-1 bg-gray-800 rounded-lg p-4 h-fit w-[50%]">
+                        <!-- <h2 class="text-xl font-bold text-indigo-400 mb-4">Last Published Veille</h2> -->
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2"><?= $last_title ?></h3>
+                            <div class="flex flex-col text-sm text-gray-400">
+                                <span>Start Date: <?= $last_start ?></span>
+                                <span>End Date: <?= $last_end ?></span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <span class="px-2 py-1 bg-green-900 text-green-300 rounded">Last Published</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-span-1 bg-gray-800 rounded-lg p-4">
                     <h2 class="text-xl font-bold text-indigo-400 mb-4">Student Suggestions</h2>
                     <div class="custom-scrollbar max-h-96 overflow-y-auto">
@@ -71,37 +101,7 @@
                     </form>
                 </div>
 
-                <div class="flex gap-2">
-                    <div class="col-span-1 bg-gray-800 rounded-lg p-4 h-fit w-[50%]">
-                        <!-- <h2 class="text-xl font-bold text-indigo-400 mb-4">Next Veille</h2> -->
-                        <div class="bg-gray-700 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2"><?= $next_title ?></h3>
-                            <div class="flex flex-col text-sm text-gray-400">
-                                <span>Start Date: <?= $next_start ?></span>
-                                <span>End Date: <?= $next_end ?></span>
-                            </div>
-                            <div class="mt-4 flex justify-between items-center">
-                                <span class="px-2 py-1 bg-green-900 text-green-300 rounded">Upcoming</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-1 bg-gray-800 rounded-lg p-4 h-fit w-[50%]">
-                        <!-- <h2 class="text-xl font-bold text-indigo-400 mb-4">Last Published Veille</h2> -->
-                        <div class="bg-gray-700 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2"><?= $last_title ?></h3>
-                            <div class="flex flex-col text-sm text-gray-400">
-                                <span>Start Date: <?= $last_start ?></span>
-                                <span>End Date: <?= $last_end ?></span>
-                            </div>
-                            <div class="mt-4 flex justify-between items-center">
-                                <span class="px-2 py-1 bg-green-900 text-green-300 rounded">Last Published</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-1 bg-gray-800 rounded-lg p-4 mt-6">
+                <div class="col-span-1 bg-gray-800 rounded-lg p-4">
                     <h2 class="text-xl font-bold text-indigo-400 mb-4">Current Veilles</h2>
 
                     <div class="mb-4">

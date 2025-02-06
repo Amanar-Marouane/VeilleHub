@@ -9,6 +9,7 @@ $router = new Router;
 $router->route("calendar", "views/presentations/calender.view.php");
 $router->route("dashboard/veilles", "", new AdminController, "veillesManage");
 $router->route("dashboard/veilles/create", "", new SubjectController, "create");
+$router->route("dashboard/veilles/delete", "", new SubjectController, "delete");
 $router->route("register", "views/auth/register.view.php");
 $router->route("login", "views/auth/login.view.php");
 $router->route("dashboard/accounts", "", new AdminController, "getAccounts");
