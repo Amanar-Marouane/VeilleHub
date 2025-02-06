@@ -124,7 +124,7 @@
                                                     class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
                                                     Modify
                                                 </button>
-                                                <button onclick="openAssignModal(<?= $veille_id ?>)"
+                                                <button onclick='openAssignModal(<?= $veille_id ?>)'
                                                     class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
                                                     Assign
                                                 </button>
@@ -247,6 +247,17 @@
                     function openAssignModal(veilleId) {
                         document.getElementById('assignModal').classList.remove('hidden');
                         document.getElementById('assignVeilleId').value = veilleId;
+
+                        let assignments = JSON.parse('<?= json_encode($assignments) ?>');
+                        let veilleAssignments = assignments.filter(assignment => assignment.veille_id === veilleId);
+                        let assignedStudents = veilleAssignments.map(student => student.student_id);
+                        let students = document.querySelectorAll("input[name='students[]']");
+                        students.forEach(student => student.checked = false);
+                        students.forEach(student => {
+                            if (assignedStudents.includes(Number(student.value))) {
+                                student.checked = true;
+                            }
+                        })
                     }
 
                     function closeAssignModal() {

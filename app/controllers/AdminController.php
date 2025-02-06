@@ -51,6 +51,7 @@ class AdminController
         $info["nextVeille"] = $this->subject->getNextVeille();
         $info["current_veilles"] = $this->subject->getAllVeilles();
         $info["students"] = $this->admin->getAllAccounts();
+        $info["assignments"] = $this->admin->getAllAssignments();
         extract($info);
         extract($lastVeille, EXTR_PREFIX_ALL, "last");
         extract($nextVeille, EXTR_PREFIX_ALL, "next");

@@ -36,4 +36,12 @@ class SubjectController
         if ($subject->update($id)) $this->baseController->redirect("/dashboard/veilles", "success", "The veille has been updated successfuly!");
         else $this->baseController->redirect("/dashboard/veilles", "error", "Something went wrong, try again");
     }
+
+    public function assign()
+    {
+        $students = $_POST["students"];
+        $veille_id = $_POST['veille_id'];
+        if ($this->admin->assign($students, $veille_id)) $this->baseController->redirect("/dashboard/veilles", "success", "The veille has been assigned successfuly!");
+        else $this->baseController->redirect("/dashboard/veilles", "error", "Something went wrong, try again");
+    }
 }
