@@ -28,4 +28,12 @@ class SubjectController
         if ($this->admin->delete($id, "veille_id", "veilles")) $this->baseController->redirect("/dashboard/veilles", "success", "The veille has been deleted successfuly!");
         else $this->baseController->redirect("/dashboard/veilles", "error", "Something went wrong, try again");
     }
+
+    public function update()
+    {
+        $subject = new Subject($_POST['title'], $_POST['start'], $_POST['end']);
+        $id = $_POST['veille_id'];
+        if ($subject->update($id)) $this->baseController->redirect("/dashboard/veilles", "success", "The veille has been updated successfuly!");
+        else $this->baseController->redirect("/dashboard/veilles", "error", "Something went wrong, try again");
+    }
 }

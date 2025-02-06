@@ -58,4 +58,12 @@ class Subject
         $stmt = "SELECT * FROM veilles";
         return $this->pdo->fetchAll($stmt);
     }
+
+    public function update($id)
+    {
+        $stmt = "UPDATE veilles
+                SET title = ?, start = ?, end = ?
+                WHERE veille_id = ?";
+        return $this->pdo->query($stmt, [$this->title, $this->start, $this->end, $id]);
+    }
 }
