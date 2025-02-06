@@ -25,14 +25,6 @@ class Db
         $this->pdo = new PDO($dsn, $username, $password, $options);
     }
 
-    public static function getInstance()
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new self;
-        }
-        return self::$instance;
-    }
-
     public function query($query, $params = [])
     {
         $stmt = $this->pdo->prepare($query);

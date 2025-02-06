@@ -27,7 +27,35 @@ class Subject
 
     public function getLastVeille()
     {
-        $stmt = "select * from veilles ORDER BY start desc limit 1";
+        $stmt = "SELECT * FROM veilles ORDER BY veille_id DESC LIMIT 1";
         return $this->pdo->fetch($stmt);
+    }
+
+    public function getNextVeille()
+    {
+        $stmt = "SELECT * FROM veilles 
+                WHERE start > CURRENT_TIMESTAMP 
+                ORDER BY start ASC 
+                LIMIT 1";
+        return $this->pdo->fetch($stmt);
+    }
+
+    public function approve($id)
+    {
+
+        $this->pdo->transaction();
+        $stmt = "INSERT veilles (title)
+                 VALUES ((SELECT suggest_content FROM suggestions WHERE suggest_id = ?))";
+        if (!$this->pdo->query($stmt, [$id])) $this->pdo->rollback();
+
+        $stmt = "DELETE FROM suggestions WHERE suggest_id = ?";
+        if (!$this->pdo->query($stmt, [$id])) $this->pdo->rollback();
+        return $this->pdo->commit();
+    }
+
+    public function getAllVeilles()
+    {
+        $stmt = "SELECT * FROM veilles";
+        return $this->pdo->fetchAll($stmt);
     }
 }

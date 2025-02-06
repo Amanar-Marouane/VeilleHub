@@ -48,8 +48,12 @@ class AdminController
     {
         $info["suggestions"] = $this->admin->getSuggestions();
         $info["lastVeille"] = $this->subject->getLastVeille();
+        $info["nextVeille"] = $this->subject->getNextVeille();
+        $info["current_veilles"] = $this->subject->getAllVeilles();
+        $info["students"] = $this->admin->getAllAccounts();
         extract($info);
-        extract($lastVeille);
+        extract($lastVeille, EXTR_PREFIX_ALL, "last");
+        extract($nextVeille, EXTR_PREFIX_ALL, "next");
         include __DIR__ . "/../views/presentations/veillesDashboard.view.php";
     }
 
@@ -58,7 +62,7 @@ class AdminController
         $id = $_POST['suggest_id'];
         $bool = (bool)(int) $_POST['action'];
         if ($bool) {
-            $this->admin->approve($id);
+            $this->subject->approve($id);
         } else {
             $this->admin->delete($id, "suggest_id", "suggestions");
         }
