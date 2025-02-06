@@ -18,7 +18,7 @@
                     id: event.veille_id,
                     title: event.title,
                     start: event.start,
-                    end: event.end
+                    // end: event.end
                 }));
 
                 calendar.addEventSource(events);
