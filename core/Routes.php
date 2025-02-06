@@ -7,6 +7,7 @@ require_once __DIR__ . "/../core/Router.php";
 
 $router = new Router;
 $router->route("calendar", "views/presentations/calender.view.php");
+$router->route("statistiques", "", new PresentationController, "statistiques");
 $router->route("dashboard/veilles", "", new AdminController, "veillesManage");
 $router->route("dashboard/veilles/create", "", new SubjectController, "create");
 $router->route("dashboard/veilles/delete", "", new SubjectController, "delete");
