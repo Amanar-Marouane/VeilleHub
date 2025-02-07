@@ -51,7 +51,7 @@ class BaseController
                 FROM assigning
                 JOIN veilles ON veilles.veille_id = assigning.veille_id
                 JOIN users ON users.user_id = assigning.student_id
-                WHERE TIMESTAMPDIFF(HOUR, veilles.start, CURRENT_TIMESTAMP) <= 48";
+                WHERE veilles.start BETWEEN CURRENT_TIMESTAMP AND DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 48 HOUR)";
         return $instence->fetchAll($stmt);
     }
 }

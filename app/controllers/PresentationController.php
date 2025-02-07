@@ -20,6 +20,6 @@ class PresentationController
         extract($total_suggestions);
         extract($participation_rate);
 
-        include __DIR__ . "/../views/presentations/statistiqueDashboard.php";
+        include __DIR__ . "/../views/presentations/statistiqueDashboard.view.php";
     }
 }

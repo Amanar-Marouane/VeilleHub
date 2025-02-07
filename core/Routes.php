@@ -39,3 +39,4 @@ $router->route("dashborad/statistiques", "", new PresentationController, "statis
 
 $router->route("dashboard/student", "", new UserController, "dashboradStudent");
 $router->route("dashborad/student/suggest", "", new SubjectController, "suggest");
+$router->route("dashborad/student/statistiques", "", new UserController, "statiquesDashboradStudent");

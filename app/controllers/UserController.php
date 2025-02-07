@@ -87,16 +87,28 @@ class UserController
         else $this->baseController::redirect("/login", "error", "Something Went Wrong");
     }
 
-    public function dashboradStudent(){
+    public function dashboradStudent()
+    {
         $student = new Student;
         $info = $student->dashboradStudent($_SESSION['user_id']);
         extract($info);
-        if($upcoming_veille) extract($upcoming_veille, EXTR_PREFIX_ALL, "upcoming");
+        if ($upcoming_veille) extract($upcoming_veille, EXTR_PREFIX_ALL, "upcoming");
         else {
             $upcoming_title = "???????????????";
             $upcoming_start = "??:??:????";
             $upcoming_end = "??:??:????";
         }
         include __DIR__ . "/../views/presentations/student-veille-dashboard.view.php";
+    }
+
+    public function statiquesDashboradStudent()
+    {
+        $student = new Student;
+        $info = $student->statiquesDashboradStudent($_SESSION['user_id']);
+        extract($info);
+        extract($overview);
+        extract($total_students);
+
+        include __DIR__ . "/../views/presentations/studentStatistiqueDashboard.view.php";
     }
 }
