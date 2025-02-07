@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\{User, Auth};
+use app\models\{User, Auth, Student};
 use core\Mailer;
 
 class UserController
@@ -85,5 +85,18 @@ class UserController
 
         if (Auth::reset($email, $password)) $this->baseController::redirect("/login", "success", "Code has been reset successfuly");
         else $this->baseController::redirect("/login", "error", "Something Went Wrong");
+    }
+
+    public function dashboradStudent(){
+        $student = new Student;
+        $info = $student->dashboradStudent($_SESSION['user_id']);
+        extract($info);
+        if($upcoming_veille) extract($upcoming_veille, EXTR_PREFIX_ALL, "upcoming");
+        else {
+            $upcoming_title = "???????????????";
+            $upcoming_start = "??:??:????";
+            $upcoming_end = "??:??:????";
+        }
+        include __DIR__ . "/../views/presentations/student-veille-dashboard.view.php";
     }
 }

@@ -36,3 +36,6 @@ $router->route("dashboard/accounts", "", new AdminController, "getAccounts");
 $router->route("dashboard/accounts/validation", "", new AdminController, "accountVal");
 
 $router->route("dashborad/statistiques", "", new PresentationController, "statistiques");
+
+$router->route("dashboard/student", "", new UserController, "dashboradStudent");
+$router->route("dashborad/student/suggest", "", new SubjectController, "suggest");

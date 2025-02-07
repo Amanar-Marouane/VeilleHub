@@ -7,16 +7,18 @@ use core\Db;
 class Subject
 {
     private $title;
+    private $note;
     private $start;
     private $end;
     private $pdo;
 
-    public function __construct($title, $start, $end)
+    public function __construct($title = '', $start = '', $end = '', $note = "")
     {
+        $this->pdo = new Db;
         $this->title = $title;
         $this->start = $start;
         $this->end = $end;
-        $this->pdo = new Db;
+        $this->note = $note;
     }
 
     public function create()
@@ -65,5 +67,11 @@ class Subject
                 SET title = ?, start = ?, end = ?
                 WHERE veille_id = ?";
         return $this->pdo->query($stmt, [$this->title, $this->start, $this->end, $id]);
+    }
+
+    public function suggest()
+    {
+        $stmt = "INSERT INTO suggestions (suggest_content, note) VALUES (?, ?)";
+        return $this->pdo->query($stmt, [$this->title, $this->note]);
     }
 }
