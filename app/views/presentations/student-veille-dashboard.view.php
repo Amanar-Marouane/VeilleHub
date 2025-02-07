@@ -1,7 +1,7 @@
 <?php include __DIR__ . "/../partials/header.view.php" ?>
 
 <div class="flex h-fit">
-    <?php include __DIR__ . "/../partials/dashboardAdminSideBar.view.php" ?>
+    <?php include __DIR__ . "/../partials/dashboardStudentSideBar.view.php" ?>
 
     <div class="flex-1">
         <main class="p-3">
