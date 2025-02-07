@@ -26,11 +26,11 @@
 
             <div class="bg-gray-800 rounded-lg border border-gray-700 p-8 shadow-2xl backdrop-blur-sm bg-opacity-90">
                 <div class="space-y-2 text-center mb-8">
-                    <h2 class="text-3xl font-bold tracking-tight text-white">Log into your Account</h2>
-                    <p class="text-gray-400">And Join thousands of learners around the world</p>
+                    <h2 class="text-3xl font-bold tracking-tight text-white">Reset Your Password</h2>
+                    <p class="text-gray-400">Enter your email address to reset your password</p>
                 </div>
 
-                <form action="/login/user" method="POST" class="space-y-6">
+                <form action="/reset/password" method="POST" class="space-y-6">
                     <div class="space-y-4">
                         <div>
                             <label for="email" class="block text-sm font-medium text-white mb-2">Email Address</label>
@@ -38,18 +38,11 @@
                                 class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
                                 required placeholder="you@example.com">
                         </div>
-
-                        <div>
-                            <label for="password" class="block text-sm font-medium text-white mb-2">Password</label>
-                            <input type="password" id="password" name="password"
-                                class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
-                                required placeholder="••••••••">
-                        </div>
                     </div>
 
                     <button type="submit"
                         class="w-full bg-indigo-600 text-white font-medium rounded-lg px-4 py-2.5 text-center hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-800 transition duration-200">
-                        Create Account
+                        Reset
                     </button>
                 </form>
 
@@ -59,16 +52,13 @@
                         <a href="/register" class="text-indigo-400 hover:text-indigo-300 font-medium hover:underline transition duration-200">
                             Resigter
                         </a>
-
+                        <br>Or
+                        <a href="/login" class="text-indigo-400 hover:text-indigo-300 font-medium hover:underline transition duration-200">
+                            Login
+                        </a>
                         <br>Or
                         <a href="/calendar" class="text-indigo-400 hover:text-indigo-300 font-medium hover:underline transition duration-200">
                             Check Calendar
-                        </a>
-                    </p>
-                    <p class="text-gray-400">
-                        Did you forgot your password?
-                        <a href="/reset" class="text-indigo-400 hover:text-indigo-300 font-medium hover:underline transition duration-200">
-                            Reset Your Password
                         </a>
                     </p>
                 </div>

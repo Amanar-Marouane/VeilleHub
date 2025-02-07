@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\{User, Auth};
+use core\Mailer;
 
 class UserController
 {
@@ -31,7 +32,7 @@ class UserController
     public function login()
     {
         if ($info = Auth::login($_POST["email"], $_POST['password'])) {
-            if($info["account_status"] == "Pending") $this->baseController::redirect("/login", "error", "Wait until your account get approved, this may take 1 day");
+            if ($info["account_status"] == "Pending") $this->baseController::redirect("/login", "error", "Wait until your account get approved, this may take 1 day");
             $_SESSION['user_id'] = $info["user_id"];
             $_SESSION['account_type'] = $info["account_type"];
             $this->baseController::redirect("/calendar", "success", "You loged in successfuly");
@@ -43,5 +44,46 @@ class UserController
     {
         Auth::logout();
         $this->baseController::redirect("/login", "success", "");
+    }
+
+    public function resetPwd()
+    {
+        $email = $_POST['email'];
+        if (!Auth::is_exist_email($email)) {
+            $this->baseController::redirect("/reset", "error", "Check your info");
+        }
+        $mailer = new Mailer;
+        $mailer->sendVerification($email);
+        $this->baseController::redirect("/reset/verify/$email", "success", "The verification code has been sent to your account, Please checked");
+    }
+
+    public function verify($email)
+    {
+        include __DIR__ . "/../views/auth/uidVerification.view.php";
+    }
+
+    public function codeCheck()
+    {
+        $email = $_POST['email'];
+        $code = $_POST['code'];
+        if (Auth::codeChecker($email, $code)) {
+            $this->baseController::redirect("/reset/newpsw/$email", "success", "");
+        } else {
+            $this->baseController::redirect("/reset/verify/$email", "error", "You have 3 more try, and you'll be freezed 4h");
+        }
+    }
+
+    public function newPsw($email)
+    {
+        include __DIR__ . "/../views/auth/newPassword.view.php";
+    }
+
+    public function reset()
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        if (Auth::reset($email, $password)) $this->baseController::redirect("/login", "success", "Code has been reset successfuly");
+        else $this->baseController::redirect("/login", "error", "Something Went Wrong");
     }
 }

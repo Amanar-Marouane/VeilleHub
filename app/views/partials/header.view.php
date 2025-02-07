@@ -14,7 +14,7 @@ include __DIR__ . "/head.view.php";
             <a href="/calendar" class="text-gray-300 hover:text-indigo-500 transition duration-300">Calendrier</a>
             <a href="/statistiques" class="text-gray-300 hover:text-indigo-500 transition duration-300">Statistiques</a>
             <?php if (isset($_SESSION['user_id'])) : ?>
-                <a href="/dashboard/accounts" class="text-gray-300 hover:text-indigo-500 transition duration-300">DashBoard</a>
+                <a href="/<?= $_SESSION["account_type"] == "Admin" ? "dashboard/accounts" : "dashboard" ?>" class="text-gray-300 hover:text-indigo-500 transition duration-300">DashBoard</a>
                 <a href="/profil" class="text-gray-300 hover:text-indigo-500 transition duration-300">Mon Profil</a>
             <?php endif ?>
         </div>

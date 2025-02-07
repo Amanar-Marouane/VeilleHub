@@ -29,4 +29,26 @@ class Auth
     {
         return isset($_SESSION["user_id"]);
     }
+
+    public static function codeChecker($email, $code)
+    {
+        $instence = new Db;
+        $stmt = "SELECT code FROM verification WHERE email = ?";
+        $codeV = $instence->fetch($stmt, [$email]);
+        return $codeV["code"] == $code;
+    }
+
+    public static function reset($email, $password)
+    {
+        $hashed_psw = password_hash($password, PASSWORD_DEFAULT);
+        $instence = new Db;
+        $stmt = "UPDATE users SET password = ? WHERE email = ?";
+        return $instence->query($stmt, [$hashed_psw, $email]);
+    }
+
+    public static function is_exist_email($email) {
+        $instence = new Db;
+        $stmt = "SELECT email FROM users WHERE email = ?";
+        return $instence->fetch($stmt, [$email]);
+    }
 }

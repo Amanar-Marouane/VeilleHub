@@ -8,7 +8,6 @@ use Dotenv\Dotenv;
 class Db
 {
     private $pdo;
-    private static $instance = null;
 
     public function __construct()
     {
