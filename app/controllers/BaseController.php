@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use core\Db;
+
 class BaseController
 {
 
@@ -40,5 +42,16 @@ class BaseController
             }
         }
         return false;
+    }
+
+    public static function isWithin48Hours()
+    {
+        $instence = new Db;
+        $stmt = "SELECT users.full_name, users.email, veilles.*
+                FROM assigning
+                JOIN veilles ON veilles.veille_id = assigning.veille_id
+                JOIN users ON users.user_id = assigning.student_id
+                WHERE TIMESTAMPDIFF(HOUR, veilles.start, CURRENT_TIMESTAMP) <= 48";
+        return $instence->fetchAll($stmt);
     }
 }

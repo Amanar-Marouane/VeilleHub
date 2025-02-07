@@ -57,4 +57,34 @@ class Mailer
         }
         $instence->commit();
     }
+
+    public function sendRemainder($email, $full_name, $title, $start, $end)
+    {
+        try {
+            $this->mail->setFrom($this->mail->Username, 'Amanar Marouane');
+            $this->mail->addAddress($email);
+
+            $this->mail->isHTML(true);
+            $this->mail->Subject = 'Veille Reminder';
+
+            $formattedStart = date("d/m/Y H:i", strtotime($start));
+            $formattedEnd = date("d/m/Y H:i", strtotime($end));
+
+            $this->mail->Body = "
+            <p>Hello <strong>$full_name</strong>,</p>
+            <p>This is a reminder for your upcoming <strong>Veille</strong> titled <strong>\"$title\"</strong>.</p>
+            <p><strong>Start:</strong> $formattedStart</p>
+            <p><strong>End:</strong> $formattedEnd</p>
+            <p>Make sure to prepare accordingly!</p>
+            <br>
+            <p>Best regards,</p>
+            <p><strong>Amanar Marouane</strong></p>
+        ";
+
+            $this->mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

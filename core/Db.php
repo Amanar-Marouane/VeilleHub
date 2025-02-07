@@ -4,6 +4,7 @@ namespace core;
 
 use PDO;
 use Dotenv\Dotenv;
+use PDOException;
 
 class Db
 {
@@ -21,7 +22,14 @@ class Db
         $options = json_decode($DB_OPTIONS, true);
 
         $dsn = "mysql:host=$servername;dbname=$dbname";
-        $this->pdo = new PDO($dsn, $username, $password, $options);
+
+        try {
+            $this->pdo = new PDO($dsn, $username, $password, $options);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+            exit;
+        }
     }
 
     public function query($query, $params = [])
