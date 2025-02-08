@@ -46,15 +46,24 @@ class Auth
         return $instence->query($stmt, [$hashed_psw, $email]);
     }
 
-    public static function is_exist_email($email) {
+    public static function is_exist_email($email)
+    {
         $instence = new Db;
         $stmt = "SELECT email FROM users WHERE email = ?";
         return $instence->fetch($stmt, [$email]);
     }
 
-    public static function user_password($email){
+    public static function user_password($email)
+    {
         $instence = new Db;
         $stmt = "SELECT password FROM users WHERE email = ?";
         return $instence->fetch($stmt, [$email]);
+    }
+
+    public static function verification_rm($email)
+    {
+        $instence = new Db;
+        $stmt = "DELETE FROM verification WHERE email = ?";
+        return $instence->query($stmt, [$email]);
     }
 }

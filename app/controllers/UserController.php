@@ -74,6 +74,7 @@ class UserController
         $email = $_POST['email'];
         $code = $_POST['code'];
         if (Auth::codeChecker($email, $code)) {
+            Auth::verification_rm($email);
             $this->baseController::redirect("/reset/newpsw/$email", "success", "");
         } else {
             $this->baseController::redirect("/reset/verify/$email", "error", "You have 3 more tries, and you'll be freezed 4h");
