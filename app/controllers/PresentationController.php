@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Presentation;
+use Dotenv\Dotenv;
 
 class PresentationController
 {
@@ -13,7 +14,8 @@ class PresentationController
         echo json_encode($veilles);
     }
 
-    public function statistiques(){
+    public function statistiques()
+    {
         $info = Presentation::statistiques();
         extract($info);
         extract($total_veilles);
@@ -21,5 +23,14 @@ class PresentationController
         extract($participation_rate);
 
         include __DIR__ . "/../views/presentations/statistiqueDashboard.view.php";
+    }
+
+    public function calendar()
+    {
+        $dotenv = Dotenv::createImmutable(__DIR__ . "/../../core/");
+        $dotenv->load();
+        extract($_ENV);
+
+        include __DIR__ . "/../views/presentations/calender.view.php";
     }
 }

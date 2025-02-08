@@ -1,5 +1,6 @@
 <?php include __DIR__ . "/../partials/header.view.php" ?>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -7,10 +8,9 @@
             initialView: 'dayGridMonth',
             events: []
         });
-
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'getAll/veilles', true);
-
+        xhr.open('POST', 'getAll/veilles', true);
+        xhr.setRequestHeader('X-System-Request', '<?= htmlspecialchars($X_SYSTEM_REQUEST, ENT_QUOTES, 'UTF-8') ?>');
         xhr.onload = function() {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.response);
