@@ -51,4 +51,10 @@ class Auth
         $stmt = "SELECT email FROM users WHERE email = ?";
         return $instence->fetch($stmt, [$email]);
     }
+
+    public static function user_password($email){
+        $instence = new Db;
+        $stmt = "SELECT password FROM users WHERE email = ?";
+        return $instence->fetch($stmt, [$email]);
+    }
 }

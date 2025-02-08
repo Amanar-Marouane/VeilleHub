@@ -16,28 +16,34 @@ class UserController
 
     public function register()
     {
-        // $flag = false;
-        // if (!BaseController::passwordValidation($_POST['password'])) $flag = true;
-        // if (!BaseController::fullnameValidation($_POST['name'])) $flag = true;
-        // if (!BaseController::emailValidation($_POST['email'])) $flag = true;
-        // if ($flag) {
-        //     $this->baseController::redirect("/register", "error", "Something went wrong, try again");
-        // }
+        $email = BaseController::emailValidation($_POST['email']);
+        if ($email && Auth::is_exist_email($email)) $this->baseController::redirect("/register", "error", "This email already exist");
+        $flag = false;
+        if (!BaseController::passwordValidation($_POST['password'])) $flag = true;
+        if (!BaseController::fullnameValidation($_POST['name'])) $flag = true;
+        if (!BaseController::emailValidation($_POST['email'])) $flag = true;
+        if ($_POST["confirm_password"] != $_POST["password"]) $this->baseController::redirect("/register", "error", "Your confirmed password isn't match");
+        if ($flag) $this->baseController::redirect("/register", "error", "Something went wrong, try again");
+
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $user = new User($_POST['name'], $_POST['email'], $password);
         if ($user->register()) $this->baseController::redirect("/login", "success", "Registering have been done successfuly, Pls wait until your account get approved");
+
         $this->baseController::redirect("/register", "error", "Something went wrong, try again");
     }
 
     public function login()
     {
+        if (!BaseController::emailValidation($_POST['email'])) $this->baseController::redirect("/login", "error", "Please Enter A Valid Email Format");
+        if (!BaseController::passwordValidation($_POST['password'])) $this->baseController::redirect("/login", "error", "Check Your Email Or Password");
+
         if ($info = Auth::login($_POST["email"], $_POST['password'])) {
             if ($info["account_status"] == "Pending") $this->baseController::redirect("/login", "error", "Wait until your account get approved, this may take 1 day");
             $_SESSION['user_id'] = $info["user_id"];
             $_SESSION['account_type'] = $info["account_type"];
             $this->baseController::redirect("/calendar", "success", "You loged in successfuly");
         }
-        $this->baseController::redirect("/login", "error", "Check your info");
+        $this->baseController::redirect("/login", "error", "Check Your Email Or Password");
     }
 
     public function logout()
@@ -64,12 +70,13 @@ class UserController
 
     public function codeCheck()
     {
+        if (!BaseController::emailValidation($_POST['email'])) $this->baseController::redirect("/login", "error", "Something Went Wrong");
         $email = $_POST['email'];
         $code = $_POST['code'];
         if (Auth::codeChecker($email, $code)) {
             $this->baseController::redirect("/reset/newpsw/$email", "success", "");
         } else {
-            $this->baseController::redirect("/reset/verify/$email", "error", "You have 3 more try, and you'll be freezed 4h");
+            $this->baseController::redirect("/reset/verify/$email", "error", "You have 3 more tries, and you'll be freezed 4h");
         }
     }
 
@@ -80,9 +87,11 @@ class UserController
 
     public function reset()
     {
+        if (!BaseController::emailValidation($_POST['email'])) $this->baseController::redirect("/login", "error", "Something Went Wrong");
         $email = $_POST['email'];
         $password = $_POST['password'];
-
+        if (!$old_password = Auth::user_password($email)) $this->baseController::redirect("/login", "error", "Something Went Wrong");
+        if (password_verify($password, $old_password["password"])) $this->baseController::redirect("/reset/newpsw/$email", "error", "You Can't Use Your Old Password");
         if (Auth::reset($email, $password)) $this->baseController::redirect("/login", "success", "Code has been reset successfuly");
         else $this->baseController::redirect("/login", "error", "Something Went Wrong");
     }
@@ -94,7 +103,7 @@ class UserController
         extract($info);
         if ($upcoming_veille) extract($upcoming_veille, EXTR_PREFIX_ALL, "upcoming");
         else {
-            $upcoming_title = "???????????????";
+            $upcoming_title = "There's No Upcoming Veilles At The Moment (Check Later)";
             $upcoming_start = "??:??:????";
             $upcoming_end = "??:??:????";
         }
