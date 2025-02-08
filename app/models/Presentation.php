@@ -8,9 +8,6 @@ use core\Db;
 class Presentation
 {
 
-    private $title;
-    private $description;
-
     public function set($property)
     {
         if (property_exists($this, $property)) {

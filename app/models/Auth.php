@@ -25,7 +25,7 @@ class Auth
         session_destroy();
     }
 
-    public static function check()
+    public static function is_in()
     {
         return isset($_SESSION["user_id"]);
     }
