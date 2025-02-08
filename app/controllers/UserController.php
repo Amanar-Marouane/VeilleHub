@@ -19,9 +19,9 @@ class UserController
         $email = BaseController::emailValidation($_POST['email']);
         if ($email && Auth::is_exist_email($email)) $this->baseController::redirect("/register", "error", "This email already exist");
         $flag = false;
-        if (!BaseController::passwordValidation($_POST['password'])) $flag = true;
-        if (!BaseController::fullnameValidation($_POST['name'])) $flag = true;
-        if (!BaseController::emailValidation($_POST['email'])) $flag = true;
+        if (!BaseController::passwordValidation($_POST['password'])) $this->baseController::redirect("/register", "error", "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)");
+        if (!BaseController::fullnameValidation($_POST['name'])) $this->baseController::redirect("/register", "error", "Name must be between 2-50 letters and can only contain single spaces between words");
+        if (!BaseController::emailValidation($_POST['email'])) $this->baseController::redirect("/register", "error", "Please Enter A Valid Email Format");
         if ($_POST["confirm_password"] != $_POST["password"]) $this->baseController::redirect("/register", "error", "Your confirmed password isn't match");
         if ($flag) $this->baseController::redirect("/register", "error", "Something went wrong, try again");
 
